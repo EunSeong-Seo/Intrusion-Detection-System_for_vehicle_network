@@ -6,8 +6,9 @@ def make_train_xy_df(path):
     df = pd.read_csv(path)
     features = ['Timestamp', 'Arbitration_ID', 'DLC', 'Data', 'Class', 'SubClass']
     data_x = df.loc[:, ['Timestamp', 'Arbitration_ID']]
-    data_y = df.loc[:, ['SubClass']]
-    data_y = 
+    data_y = df.loc[:, ['SubClass']] # Class or SubClass??
+    pd.get_dummies(data_y)
+    return data_x, data_y
 
 
 def make_train_xy_df_with_D(path):
