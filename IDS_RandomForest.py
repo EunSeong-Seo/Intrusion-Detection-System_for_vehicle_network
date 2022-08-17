@@ -1,26 +1,23 @@
 import pandas as pd
-import numpy as np
-from sklearn.tree import DecisionTreeClassifier
+import warnings
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
+from preprocessing import make_train_xy_df, make_train_xy_df_with_D
+from sklearn import metrics
+warnings.filterwarnings('ignore')
 
 # set data paths
-path = can_dataset_path_for_D_1 = 'dataset/Pre_train_D_attack_1.csv'
+can_dataset_path_for_D_1 = 'dataset/Pre_train_D_attack_1.csv'
 can_dataset_path_for_D_2 = 'dataset/Pre_train_D_attack_2.csv'
 
+# Load dataset
+X_train, Y_train = make_train_xy_df_with_D(can_dataset_path_for_D_1)
+X_test, Y_test = make_train_xy_df_with_D(can_dataset_path_for_D_2)
 
-# split train_x, train_y , test_x, test_y
-# train, val = train_test_split(data_D_attack_train, train_size=0.80, test_size=0.20, stratify=train, shuffle = False)
-def byte_encoding
+clf = RandomForestClassifier(n_estimators=100, max_depth=100, random_state=0)
 
-# v1.0 throw IDs away
-def make_train_xy_df(path):
-    # Load data from path
-    df = pd.read_csv(path)
-    features = ['Timestamp', 'Arbitration_ID', 'DLC', 'Data', 'Class', 'SubClass']
-    df_data = df['Data'].str.split(' ', expand=True)
-    df_data.columns = ['D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7']
-    df_data
-    # I have to modify D0 ~ D7 to binaryencoding
-    data_x = df.loc[:, ['Timestamp', 'Arbitration_ID', 'DLC', 'Data']]
-    data_y = df.loc[:, ['SubClass']]
+clf.fit(X_train, Y_train)
+Y_pred = clf.predict(X_test)
+
+print(metrics.accuracy_score(Y_test, Y_pred))
+print(metrics.confusion_matrix(Y_test, Y_pred))
+print(metrics.classification_report(Y_test, Y_pred))
