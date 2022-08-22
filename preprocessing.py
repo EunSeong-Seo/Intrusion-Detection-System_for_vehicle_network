@@ -15,18 +15,10 @@ def make_train_xy_df(path):
     df['Arbitration_ID'] = df['Arbitration_ID'].apply(change_hex_to_int)
     data_x = df.loc[:, ['Timestamp', 'Arbitration_ID']]
     data_y = df.loc[:, ['SubClass']]
-    '''
-    mapping_dict = {'Normal': 1,
-                    'Flooding': 2,
-                    'Spoofing': 3,
-                    'Replay': 4,
-                    'Fuzzing': 5, }
-    data_y = data_y['SubClass'].apply(lambda x : mapping_dict)
-    '''
     return data_x, data_y
 
 
-def make_train_xy_df_with_D(path):
+def make_data_target(path):
     # Load data from path
     df = pd.read_csv(path)
     features = ['Timestamp', 'Arbitration_ID', 'DLC', 'Data', 'Class', 'SubClass']
