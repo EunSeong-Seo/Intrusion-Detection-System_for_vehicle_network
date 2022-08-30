@@ -18,10 +18,8 @@ def make_train_xy_df(path):
     return data_x, data_y
 
 
-def make_data_target(path):
-    # Load data from path
-    df = pd.read_csv(path)
-    features = ['Timestamp', 'Arbitration_ID', 'DLC', 'Data', 'Class', 'SubClass']
+def make_data_target(df):
+    # features = ['Timestamp', 'Arbitration_ID', 'DLC', 'Data', 'Class', 'SubClass']
     df_data = df['Data'].str.split(' ', expand=True)
     df_data.columns = ['D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7']
 
